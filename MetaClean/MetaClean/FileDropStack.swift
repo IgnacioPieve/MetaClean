@@ -7,7 +7,6 @@ import UniformTypeIdentifiers
 @MainActor
 struct FileDropStack: View {
     @State private var files: [File] = []
-    @State private var thumbs: [UUID: NSImage] = [:]
 
     private let dropTypes = [
         UTType.fileURL.identifier,
@@ -24,16 +23,8 @@ struct FileDropStack: View {
                 .background(Color.gray.opacity(0.04))
                 .clipShape(RoundedRectangle(cornerRadius: 12))
 
-            ForEach(Array(files.enumerated()), id: \.element.id) { i, f in
-                Image(nsImage: thumbs[f.id] ?? NSImage())
-                    .resizable()
-                    .scaledToFit()
-                    .frame(width: 300, height: 200)
-                    .cornerRadius(10)
-                    .shadow(radius: 3)
-                    .rotationEffect(.degrees(Double(i) * 4 - 4))
-                    .offset(x: Double(i) * 6, y: Double(i) * 6)
-                    .task { await genThumb(for: f) }
+            ForEach(Array(files.enumerated()), id: \.element.id) { index, file in
+                FilePreviewCard(file: file, index: index)
             }
 
             if files.isEmpty {
@@ -84,21 +75,6 @@ struct FileDropStack: View {
 
     private func append(_ f: File) async {
         files.append(f)
-    }
-
-    private func genThumb(for file: File) async {
-        let tmp = FileManager.default.temporaryDirectory
-            .appendingPathComponent(file.id.uuidString)
-            .appendingPathExtension(URL(filePath: file.filename).pathExtension)
-        try? file.data.write(to: tmp, options: .atomic)
-
-        let req = QLThumbnailGenerator.Request(
-            fileAt: tmp, size: CGSize(width: 600, height: 400),
-            scale: 2, representationTypes: .all
-        )
-        if let rep = try? await QLThumbnailGenerator.shared.generateBestRepresentation(for: req) {
-            thumbs[file.id] = NSImage(cgImage: rep.cgImage, size: .zero)
-        }
     }
 }
 
