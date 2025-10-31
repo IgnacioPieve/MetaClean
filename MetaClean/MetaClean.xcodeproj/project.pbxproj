@@ -8,7 +8,6 @@
 
 /* Begin PBXFileReference section */
 		4FB269052EB437CC001975E1 /* MetaClean.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MetaClean.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		4FB269302EB43A4C001975E1 /* MetaClean.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; path = MetaClean.xcodeproj; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -42,13 +41,6 @@
 			isa = PBXGroup;
 			children = (
 				4FB269052EB437CC001975E1 /* MetaClean.app */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
-		4FB269312EB43A4C001975E1 /* Products */ = {
-			isa = PBXGroup;
-			children = (
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -105,12 +97,6 @@
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 4FB269062EB437CC001975E1 /* Products */;
 			projectDirPath = "";
-			projectReferences = (
-				{
-					ProductGroup = 4FB269312EB43A4C001975E1 /* Products */;
-					ProjectRef = 4FB269302EB43A4C001975E1 /* MetaClean.xcodeproj */;
-				},
-			);
 			projectRoot = "";
 			targets = (
 				4FB269042EB437CC001975E1 /* MetaClean */,
