@@ -9,6 +9,8 @@ on:
 jobs:
   build:
     runs-on: macos-latest
+    permissions:
+      contents: write
 
     steps:
       - name: Checkout repository
@@ -26,11 +28,11 @@ jobs:
       - name: Create ZIP
         run: |
           cd MetaClean/build/App.xcarchive/Products/Applications
-          zip -r ../../../../MetaClean.zip MetaClean.app
+          zip -r ${{ github.workspace }}/MetaClean.zip MetaClean.app
 
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v2
         with:
-          files: MetaClean.zip
+          files: ${{ github.workspace }}/MetaClean.zip
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
