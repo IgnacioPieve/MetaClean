@@ -23,12 +23,8 @@ struct FileDropStack: View {
                 .background(Color.gray.opacity(0.04))
                 .clipShape(RoundedRectangle(cornerRadius: 12))
 
-            ForEach(Array(files.enumerated()), id: \.element.id) { index, file in
-                FilePreviewCard(file: file, index: index)
-                    .transition(.asymmetric(
-                        insertion: .scale.combined(with: .opacity),
-                        removal: .scale.combined(with: .opacity)
-                    ))
+            if !files.isEmpty {
+                FileStackView(files: files)
             }
 
             if files.isEmpty {
