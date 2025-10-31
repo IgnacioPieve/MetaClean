@@ -25,6 +25,10 @@ struct FileDropStack: View {
 
             ForEach(Array(files.enumerated()), id: \.element.id) { index, file in
                 FilePreviewCard(file: file, index: index)
+                    .transition(.asymmetric(
+                        insertion: .scale.combined(with: .opacity),
+                        removal: .scale.combined(with: .opacity)
+                    ))
             }
 
             if files.isEmpty {
@@ -34,6 +38,7 @@ struct FileDropStack: View {
         .frame(minWidth: 360, maxWidth: .infinity, minHeight: 260, maxHeight: .infinity)
         .padding()
         .contentShape(Rectangle())
+        .animation(.spring(response: 0.4, dampingFraction: 0.7), value: files.count)
         .onDrop(of: dropTypes, isTargeted: nil) { providers in
             handleDrop(providers); return true
         }
@@ -74,7 +79,9 @@ struct FileDropStack: View {
     }
 
     private func append(_ f: File) async {
-        files.append(f)
+        withAnimation {
+            files.append(f)
+        }
     }
 }
 

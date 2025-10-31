@@ -15,6 +15,7 @@ struct FilePreviewCard: View {
     let index: Int
     
     @State private var thumbnail: NSImage?
+    @State private var isDragging = false
     
     var body: some View {
         Image(nsImage: thumbnail ?? NSImage())
@@ -22,11 +23,25 @@ struct FilePreviewCard: View {
             .scaledToFit()
             .frame(width: 300, height: 200)
             .cornerRadius(10)
-            .shadow(radius: 3)
+            .shadow(radius: isDragging ? 8 : 3)
+            .scaleEffect(isDragging ? 1.05 : 1.0)
             .rotationEffect(.degrees(Double(index) * 4 - 4))
             .offset(x: Double(index) * 6, y: Double(index) * 6)
+            .animation(.spring(response: 0.3, dampingFraction: 0.6), value: isDragging)
             .task {
                 await generateThumbnail()
+            }
+            .onDrag {
+                isDragging = true
+                return createDraggableItem()
+            }
+            .onChange(of: isDragging) { _, newValue in
+                if newValue {
+                    Task {
+                        try? await Task.sleep(for: .milliseconds(100))
+                        isDragging = false
+                    }
+                }
             }
     }
     
@@ -49,6 +64,16 @@ struct FilePreviewCard: View {
         }
         
         try? FileManager.default.removeItem(at: tmpURL)
+    }
+    
+    private func createDraggableItem() -> NSItemProvider {
+        let tmpURL = FileManager.default.temporaryDirectory
+            .appendingPathComponent(file.filename)
+        
+        try? file.data.write(to: tmpURL, options: .atomic)
+        
+        let provider = NSItemProvider(object: tmpURL as NSURL)
+        return provider
     }
 }
 
