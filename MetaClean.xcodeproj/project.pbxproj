@@ -7,11 +7,11 @@
 	objects = {
 
 /* Begin PBXFileReference section */
-		4FB268EE2EB43784001975E1 /* MetaClean.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MetaClean.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		4FB269052EB437CC001975E1 /* MetaClean.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MetaClean.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
-		4FB268F02EB43784001975E1 /* MetaClean */ = {
+		4FB269072EB437CC001975E1 /* MetaClean */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			path = MetaClean;
 			sourceTree = "<group>";
@@ -19,7 +19,7 @@
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		4FB268EB2EB43784001975E1 /* Frameworks */ = {
+		4FB269022EB437CC001975E1 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -29,18 +29,18 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		4FB268E52EB43784001975E1 = {
+		4FB268FC2EB437CC001975E1 = {
 			isa = PBXGroup;
 			children = (
-				4FB268F02EB43784001975E1 /* MetaClean */,
-				4FB268EF2EB43784001975E1 /* Products */,
+				4FB269072EB437CC001975E1 /* MetaClean */,
+				4FB269062EB437CC001975E1 /* Products */,
 			);
 			sourceTree = "<group>";
 		};
-		4FB268EF2EB43784001975E1 /* Products */ = {
+		4FB269062EB437CC001975E1 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				4FB268EE2EB43784001975E1 /* MetaClean.app */,
+				4FB269052EB437CC001975E1 /* MetaClean.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -48,64 +48,64 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		4FB268ED2EB43784001975E1 /* MetaClean */ = {
+		4FB269042EB437CC001975E1 /* MetaClean */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 4FB268F92EB43785001975E1 /* Build configuration list for PBXNativeTarget "MetaClean" */;
+			buildConfigurationList = 4FB269102EB437CC001975E1 /* Build configuration list for PBXNativeTarget "MetaClean" */;
 			buildPhases = (
-				4FB268EA2EB43784001975E1 /* Sources */,
-				4FB268EB2EB43784001975E1 /* Frameworks */,
-				4FB268EC2EB43784001975E1 /* Resources */,
+				4FB269012EB437CC001975E1 /* Sources */,
+				4FB269022EB437CC001975E1 /* Frameworks */,
+				4FB269032EB437CC001975E1 /* Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 			);
 			fileSystemSynchronizedGroups = (
-				4FB268F02EB43784001975E1 /* MetaClean */,
+				4FB269072EB437CC001975E1 /* MetaClean */,
 			);
 			name = MetaClean;
 			packageProductDependencies = (
 			);
 			productName = MetaClean;
-			productReference = 4FB268EE2EB43784001975E1 /* MetaClean.app */;
+			productReference = 4FB269052EB437CC001975E1 /* MetaClean.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
-		4FB268E62EB43784001975E1 /* Project object */ = {
+		4FB268FD2EB437CC001975E1 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
 				LastSwiftUpdateCheck = 2600;
 				LastUpgradeCheck = 2600;
 				TargetAttributes = {
-					4FB268ED2EB43784001975E1 = {
+					4FB269042EB437CC001975E1 = {
 						CreatedOnToolsVersion = 26.0.1;
 					};
 				};
 			};
-			buildConfigurationList = 4FB268E92EB43784001975E1 /* Build configuration list for PBXProject "MetaClean" */;
+			buildConfigurationList = 4FB269002EB437CC001975E1 /* Build configuration list for PBXProject "MetaClean" */;
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
 				Base,
 			);
-			mainGroup = 4FB268E52EB43784001975E1;
+			mainGroup = 4FB268FC2EB437CC001975E1;
 			minimizedProjectReferenceProxies = 1;
 			preferredProjectObjectVersion = 77;
-			productRefGroup = 4FB268EF2EB43784001975E1 /* Products */;
+			productRefGroup = 4FB269062EB437CC001975E1 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				4FB268ED2EB43784001975E1 /* MetaClean */,
+				4FB269042EB437CC001975E1 /* MetaClean */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		4FB268EC2EB43784001975E1 /* Resources */ = {
+		4FB269032EB437CC001975E1 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -115,7 +115,7 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-		4FB268EA2EB43784001975E1 /* Sources */ = {
+		4FB269012EB437CC001975E1 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -125,7 +125,7 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin XCBuildConfiguration section */
-		4FB268F72EB43785001975E1 /* Debug */ = {
+		4FB2690E2EB437CC001975E1 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -188,7 +188,7 @@
 			};
 			name = Debug;
 		};
-		4FB268F82EB43785001975E1 /* Release */ = {
+		4FB2690F2EB437CC001975E1 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -243,7 +243,7 @@
 			};
 			name = Release;
 		};
-		4FB268FA2EB43785001975E1 /* Debug */ = {
+		4FB269112EB437CC001975E1 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
@@ -273,7 +273,7 @@
 			};
 			name = Debug;
 		};
-		4FB268FB2EB43785001975E1 /* Release */ = {
+		4FB269122EB437CC001975E1 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
@@ -306,25 +306,25 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		4FB268E92EB43784001975E1 /* Build configuration list for PBXProject "MetaClean" */ = {
+		4FB269002EB437CC001975E1 /* Build configuration list for PBXProject "MetaClean" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				4FB268F72EB43785001975E1 /* Debug */,
-				4FB268F82EB43785001975E1 /* Release */,
+				4FB2690E2EB437CC001975E1 /* Debug */,
+				4FB2690F2EB437CC001975E1 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		4FB268F92EB43785001975E1 /* Build configuration list for PBXNativeTarget "MetaClean" */ = {
+		4FB269102EB437CC001975E1 /* Build configuration list for PBXNativeTarget "MetaClean" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				4FB268FA2EB43785001975E1 /* Debug */,
-				4FB268FB2EB43785001975E1 /* Release */,
+				4FB269112EB437CC001975E1 /* Debug */,
+				4FB269122EB437CC001975E1 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
-	rootObject = 4FB268E62EB43784001975E1 /* Project object */;
+	rootObject = 4FB268FD2EB437CC001975E1 /* Project object */;
 }

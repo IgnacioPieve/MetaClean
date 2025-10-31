@@ -1,6 +1,6 @@
 //
 //  ContentView.swift
-//  MetaClean
+//  EXIF Remover
 //
 //  Created by Ignacio Pieve Roiger on 30/10/2025.
 //
@@ -14,6 +14,7 @@ struct ContentView: View {
                 .imageScale(.large)
                 .foregroundStyle(.tint)
             Text("Hello, world!")
+            FileDropStack()
         }
         .padding()
     }
