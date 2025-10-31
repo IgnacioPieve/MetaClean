@@ -1,0 +1,42 @@
+name: macOS Build and Release
+
+on:
+  push:
+    tags:
+      - 'v*'   # triggers on version tags like v1.0.0
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: macos-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Build app
+        run: |
+          xcodebuild -scheme "MetaClean" \
+            -configuration Release \
+            -archivePath build/App.xcarchive \
+            -destination 'generic/platform=macOS' \
+            clean archive
+
+      - name: Export .app
+        run: |
+          xcodebuild -exportArchive \
+            -archivePath build/App.xcarchive \
+            -exportPath build \
+            -exportOptionsPlist ExportOptions.plist || true
+
+      - name: Create ZIP
+        run: |
+          cd build
+          zip -r MetaClean.zip *.app
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: build/MetaClean.zip
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
