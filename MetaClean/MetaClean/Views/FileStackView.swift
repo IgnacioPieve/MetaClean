@@ -6,11 +6,13 @@
 //
 
 import SwiftUI
+import AppKit
 import UniformTypeIdentifiers
 
 @MainActor
 struct FileStackView: View {
     let files: [File]
+    @State private var fileURLs: [URL] = []
     
     var body: some View {
         ZStack {
@@ -31,19 +33,29 @@ struct FileStackView: View {
     private func createDraggableFiles() -> NSItemProvider {
         guard !files.isEmpty else { return NSItemProvider() }
         
-        // Escribir todos los archivos a una carpeta temporal
-        let dragFolder = FileManager.default.temporaryDirectory
-            .appendingPathComponent("MetaClean_\(UUID().uuidString)")
-        
-        try? FileManager.default.createDirectory(at: dragFolder, withIntermediateDirectories: true)
+        fileURLs.removeAll()
         
         for file in files {
-            let fileURL = dragFolder.appendingPathComponent(file.filename)
-            try? file.data.write(to: fileURL, options: .atomic)
+            let fileURL = FileManager.default.temporaryDirectory
+                .appendingPathComponent(file.filename)
+            
+            if (try? file.data.write(to: fileURL, options: .atomic)) != nil {
+                fileURLs.append(fileURL)
+            }
         }
         
-        // Arrastrar la carpeta (funciona sin crashes)
-        return NSItemProvider(object: dragFolder as NSURL)
+        guard !fileURLs.isEmpty else { return NSItemProvider() }
+        
+        let itemProvider = NSItemProvider(contentsOf: fileURLs.first!)
+        itemProvider?.suggestedName = fileURLs.first!.lastPathComponent
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+            let dragPasteboard = NSPasteboard(name: .drag)
+            dragPasteboard.clearContents()
+            dragPasteboard.writeObjects(fileURLs.map { $0 as NSURL })
+        }
+        
+        return itemProvider ?? NSItemProvider()
     }
 }
 
