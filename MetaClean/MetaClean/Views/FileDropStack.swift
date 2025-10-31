@@ -75,6 +75,12 @@ struct FileDropStack: View {
     }
 
     private func append(_ f: File) async {
+        let isDuplicate = files.contains { existingFile in
+            existingFile.filename == f.filename && existingFile.data.count == f.data.count
+        }
+        
+        guard !isDuplicate else { return }
+        
         withAnimation {
             files.append(f)
         }
