@@ -31,7 +31,7 @@ struct FileDropStack: View {
                 Text("Drop files here").foregroundStyle(.secondary)
             }
         }
-        .frame(width: 360, height: 260)
+        .frame(minWidth: 360, maxWidth: .infinity, minHeight: 260, maxHeight: .infinity)
         .padding()
         .contentShape(Rectangle())
         .onDrop(of: dropTypes, isTargeted: nil) { providers in
