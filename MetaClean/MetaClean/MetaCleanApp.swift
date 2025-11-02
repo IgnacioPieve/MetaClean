@@ -11,7 +11,7 @@ import SwiftUI
 struct MetaCleanApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            FileDropStack()
         }
     }
 }

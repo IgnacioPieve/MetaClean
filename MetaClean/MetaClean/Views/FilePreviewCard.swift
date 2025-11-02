@@ -6,7 +6,6 @@
 //
 
 import SwiftUI
-import AppKit
 import QuickLookThumbnailing
 
 @MainActor
@@ -25,9 +24,7 @@ struct FilePreviewCard: View {
             .shadow(radius: 3)
             .rotationEffect(.degrees(Double(index) * 4 - 4))
             .offset(x: Double(index) * 6, y: Double(index) * 6)
-            .task {
-                await generateThumbnail()
-            }
+            .task { await generateThumbnail() }
     }
     
     private func generateThumbnail() async {
@@ -53,10 +50,6 @@ struct FilePreviewCard: View {
 }
 
 #Preview {
-    let exampleFile = File(
-        filename: "example.jpg",
-        data: Data()
-    )
-    return FilePreviewCard(file: exampleFile, index: 0)
+    FilePreviewCard(file: File(filename: "example.jpg", data: Data()), index: 0)
 }
 

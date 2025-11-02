@@ -1,20 +1,9 @@
 import SwiftUI
-import AppKit
-import QuickLookThumbnailing
 import UniformTypeIdentifiers
-
 
 @MainActor
 struct FileDropStack: View {
     @State private var files: [File] = []
-
-    private let dropTypes = [
-        UTType.fileURL.identifier,
-        UTType.image.identifier,
-        UTType.movie.identifier,
-        UTType.audio.identifier,
-        UTType.data.identifier
-    ]
 
     var body: some View {
         ZStack {
@@ -23,70 +12,46 @@ struct FileDropStack: View {
                 .background(Color.gray.opacity(0.04))
                 .clipShape(RoundedRectangle(cornerRadius: 12))
 
-            if !files.isEmpty {
-                FileStackView(files: files)
-            }
-
             if files.isEmpty {
                 Text("Drop files here").foregroundStyle(.secondary)
+            } else {
+                FileStackView(files: files)
             }
         }
         .frame(minWidth: 360, maxWidth: .infinity, minHeight: 260, maxHeight: .infinity)
         .padding()
         .contentShape(Rectangle())
         .animation(.spring(response: 0.4, dampingFraction: 0.7), value: files.count)
-        .onDrop(of: dropTypes, isTargeted: nil) { providers in
-            handleDrop(providers); return true
+        .onDrop(of: [UTType.fileURL.identifier], isTargeted: nil) { providers in
+            handleDrop(providers)
+            return true
         }
     }
     
     private func handleDrop(_ providers: [NSItemProvider]) {
-        for p in providers {
-            if p.hasItemConformingToTypeIdentifier(UTType.fileURL.identifier) {
-                p.loadItem(forTypeIdentifier: UTType.fileURL.identifier, options: nil) { obj, _ in
-                    if let d = obj as? Data, let url = URL(dataRepresentation: d, relativeTo: nil) {
-                        Task { await appendFromURL(url) }
-                    } else if let url = obj as? URL {
-                        Task { await appendFromURL(url) }
-                    }
-                }
-                continue
-            }
-
-            if let type = [UTType.image, .movie, .audio, .data]
-                .first(where: { p.hasItemConformingToTypeIdentifier($0.identifier) }) {
-
-                p.loadItem(forTypeIdentifier: type.identifier, options: nil) { obj, _ in
-                    if let url = obj as? URL, let d = try? Data(contentsOf: url) {
-                        Task { await append(File(filename: url.lastPathComponent, data: d)) }
-                    } else if let d = obj as? Data {
-                        let ext = type.preferredFilenameExtension ?? "bin"
-                        Task { await append(File(filename: "dropped.\(ext)", data: d)) }
-                    }
-                }
+        for provider in providers {
+            provider.loadItem(forTypeIdentifier: UTType.fileURL.identifier, options: nil) { obj, _ in
+                guard let url = (obj as? Data).flatMap({ URL(dataRepresentation: $0, relativeTo: nil) }) ?? obj as? URL,
+                      let data = try? Data(contentsOf: url) else { return }
+                
+                Task { await append(File(filename: url.lastPathComponent, data: data)) }
             }
         }
     }
 
-    private func appendFromURL(_ url: URL) async {
-        if let d = try? Data(contentsOf: url) {
-            await append(File(filename: url.lastPathComponent, data: d))
-        }
-    }
-
-    private func append(_ f: File) async {
-        let isDuplicate = files.contains { existingFile in
-            existingFile.filename == f.filename && existingFile.data.count == f.data.count
+    private func append(_ file: File) async {
+        let isDuplicate = files.contains {
+            $0.filename == file.filename && $0.data.count == file.data.count
         }
         
         guard !isDuplicate else { return }
         
         withAnimation {
-            files.append(f)
+            files.append(file)
         }
     }
 }
 
 #Preview {
-    return FileDropStack()
+    FileDropStack()
 }
