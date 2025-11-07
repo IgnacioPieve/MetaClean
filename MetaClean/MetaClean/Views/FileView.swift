@@ -34,7 +34,17 @@ struct FileView: View {
     }
     
     private func downloadFile() {
+        let savePanel = NSSavePanel()
+        savePanel.allowedContentTypes = [.data]
+        savePanel.nameFieldStringValue = "cleaned_\(file.displayName)"
         
+        if savePanel.runModal() == .OK, let destinationURL = savePanel.url {
+            do {
+                try FileManager.default.copyItem(at: file.processedURL, to: destinationURL)
+            } catch {
+                print("Error saving file: \(error)")
+            }
+        }
     }
 }
 

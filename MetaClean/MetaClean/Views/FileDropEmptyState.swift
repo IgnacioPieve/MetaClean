@@ -15,11 +15,11 @@ struct FileDropEmptyState: View {
                 .foregroundColor(.secondary)
             
             VStack(spacing: 8) {
-                Text("Drag & Drop Files Here")
+                Text("Drag & Drop Images Here")
                     .font(.title2)
                     .fontWeight(.semibold)
                 
-                Text("Supported formats: JPG, PNG, MP4, PDF")
+                Text("Supported formats: JPG, PNG, HEIC")
                     .font(.body)
                     .foregroundColor(.secondary)
             }
