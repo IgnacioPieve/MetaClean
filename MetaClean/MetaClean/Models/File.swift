@@ -1,6 +1,6 @@
 //
-//  Media.swift
-//  EXIF Remover
+//  File.swift
+//  MetaClean
 //
 //  Created by Ignacio Pieve Roiger on 30/10/2025.
 //
@@ -9,6 +9,7 @@ import Foundation
 
 struct File: Identifiable {
     let id = UUID()
-    let filename: String
-    let data: Data
+    let originalURL: URL
+    let processedURL: URL
+    let displayName: String
 }
