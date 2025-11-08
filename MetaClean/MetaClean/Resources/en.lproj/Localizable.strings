@@ -11,3 +11,7 @@
 /* File Name Prefix */
 "file.cleaned_prefix" = "cleaned";
 
+/* Save Panel Messages */
+"save_panel.message.single" = "Choose where to save the file";
+"save_panel.message.multiple" = "Choose where to save the files";
+
