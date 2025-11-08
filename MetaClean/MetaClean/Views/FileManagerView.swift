@@ -26,26 +26,8 @@ struct FileManagerView: View {
     }
     
     private func handleDrop(providers: [NSItemProvider]) {
-        // Each provider represents a promise of a file
-        for provider in providers {
-            provider.loadItem(forTypeIdentifier: UTType.fileURL.identifier, options: nil) { data, error in
-                guard let data = data as? Data,
-                      let originalURL = URL(dataRepresentation: data, relativeTo: nil) else { return }
-                
-                // Process image in background
-                DispatchQueue.global(qos: .userInitiated).async {
-                    if let processedURL = MetadataRemovalService.shared.removeMetadata(from: originalURL) {
-                        DispatchQueue.main.async {
-                            let newFile = File(
-                                originalURL: originalURL,
-                                processedURL: processedURL,
-                                displayName: originalURL.lastPathComponent
-                            )
-                            files.append(newFile)
-                        }
-                    }
-                }
-            }
+        FileService.shared.importFiles(from: providers) { newFiles in
+            files.append(contentsOf: newFiles)
         }
     }
 }

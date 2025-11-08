@@ -10,7 +10,16 @@ import UniformTypeIdentifiers
 
 struct FileView: View {
     let file: File
+    let isSelected: Bool
+    let allFiles: [File]
+    let selectedFileIDs: Set<UUID>
+    let onToggleSelection: () -> Void
+    
     @State private var isHovering = false
+    
+    var selectedFiles: [File] {
+        allFiles.filter { selectedFileIDs.contains($0.id) }
+    }
     
     var body: some View {
         HStack {
@@ -27,41 +36,46 @@ struct FileView: View {
             Spacer()
             
             Button(NSLocalizedString("action.download", comment: "Download button label")) {
-                downloadFile()
+                downloadFiles()
             }
             .buttonStyle(.borderedProminent)
         }
         .padding()
-        .background(isHovering ? Color.accentColor.opacity(0.1) : Color.clear)
+        .background(isSelected ? Color.accentColor.opacity(0.2) : (isHovering ? Color.accentColor.opacity(0.05) : Color.clear))
         .cornerRadius(8)
+        .contentShape(Rectangle())
+        .simultaneousGesture(
+            TapGesture().modifiers(.command).onEnded {
+                onToggleSelection()
+            }
+        )
         .onDrag {
-            return NSItemProvider(object: file.processedURL as NSURL)
+            let urls = selectedFiles.count > 1 ? selectedFiles.map { $0.processedURL } : [file.processedURL]
+            return FileService.shared.createDragProvider(for: urls)
         }
         .onHover { hovering in
             isHovering = hovering
         }
     }
     
-    private func downloadFile() {
-        let savePanel = NSSavePanel()
-        savePanel.allowedContentTypes = [.data]
-        let prefix = NSLocalizedString("file.cleaned_prefix", comment: "Prefix for cleaned file names")
-        savePanel.nameFieldStringValue = "\(prefix)_\(file.displayName)"
-        
-        if savePanel.runModal() == .OK, let destinationURL = savePanel.url {
-            do {
-                try FileManager.default.copyItem(at: file.processedURL, to: destinationURL)
-            } catch {
-                print("Error saving file: \(error)")
-            }
-        }
+    private func downloadFiles() {
+        let urls = selectedFiles.count > 1 ? selectedFiles.map { $0.processedURL } : [file.processedURL]
+        FileService.shared.exportFiles(urls)
     }
 }
 
 #Preview {
-    FileView(file: File(
+    let file = File(
         originalURL: URL(fileURLWithPath: "/Users/example/Documents/photo.jpg"),
         processedURL: URL(fileURLWithPath: "/Users/example/Documents/photo_cleaned.jpg"),
         displayName: "photo.jpg"
-    ))
+    )
+    
+    return FileView(
+        file: file,
+        isSelected: false,
+        allFiles: [file],
+        selectedFileIDs: [],
+        onToggleSelection: { }
+    )
 }
