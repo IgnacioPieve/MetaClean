@@ -15,11 +15,11 @@ struct FileDropEmptyState: View {
                 .foregroundColor(.secondary)
             
             VStack(spacing: 8) {
-                Text("Drag & Drop Images Here")
+                Text(NSLocalizedString("empty_state.title", comment: "Title for empty state"))
                     .font(.title2)
                     .fontWeight(.semibold)
                 
-                Text("Supported formats: JPG, PNG, HEIC")
+                Text(NSLocalizedString("empty_state.subtitle", comment: "Subtitle showing supported formats"))
                     .font(.body)
                     .foregroundColor(.secondary)
             }

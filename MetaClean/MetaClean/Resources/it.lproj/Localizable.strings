@@ -1,0 +1,13 @@
+/* Error Messages */
+"error.file_processing" = "Impossibile elaborare il file selezionato.";
+
+/* File Drop Empty State */
+"empty_state.title" = "Trascina le immagini qui";
+"empty_state.subtitle" = "Formati supportati: JPG, PNG, HEIC";
+
+/* File Actions */
+"action.download" = "Scarica";
+
+/* File Name Prefix */
+"file.cleaned_prefix" = "pulita";
+

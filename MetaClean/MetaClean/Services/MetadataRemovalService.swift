@@ -31,7 +31,7 @@ class MetadataRemovalService {
       DispatchQueue.main.async {
         NotificationCenter.default.post(
           name: Notification.Name("ShowToastNotification"),
-          object: "No se pudo procesar el archivo seleccionado.")
+          object: NSLocalizedString("error.file_processing", comment: "Error message when file cannot be processed"))
       }
       return nil
     }

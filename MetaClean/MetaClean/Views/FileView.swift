@@ -25,7 +25,7 @@ struct FileView: View {
             
             Spacer()
             
-            Button("Download") {
+            Button(NSLocalizedString("action.download", comment: "Download button label")) {
                 downloadFile()
             }
             .buttonStyle(.borderedProminent)
@@ -36,7 +36,8 @@ struct FileView: View {
     private func downloadFile() {
         let savePanel = NSSavePanel()
         savePanel.allowedContentTypes = [.data]
-        savePanel.nameFieldStringValue = "cleaned_\(file.displayName)"
+        let prefix = NSLocalizedString("file.cleaned_prefix", comment: "Prefix for cleaned file names")
+        savePanel.nameFieldStringValue = "\(prefix)_\(file.displayName)"
         
         if savePanel.runModal() == .OK, let destinationURL = savePanel.url {
             do {
