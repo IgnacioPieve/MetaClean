@@ -10,6 +10,7 @@ import UniformTypeIdentifiers
 
 struct FileView: View {
     let file: File
+    @State private var isHovering = false
     
     var body: some View {
         HStack {
@@ -31,6 +32,14 @@ struct FileView: View {
             .buttonStyle(.borderedProminent)
         }
         .padding()
+        .background(isHovering ? Color.accentColor.opacity(0.1) : Color.clear)
+        .cornerRadius(8)
+        .onDrag {
+            return NSItemProvider(object: file.processedURL as NSURL)
+        }
+        .onHover { hovering in
+            isHovering = hovering
+        }
     }
     
     private func downloadFile() {
